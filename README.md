@@ -1,1 +1,1 @@
-# vit-server
+# Vit Server
