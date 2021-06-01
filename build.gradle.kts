@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.gradle.language.jvm.tasks.ProcessResources
 
 plugins {
 	id("org.springframework.boot") version "2.3.11.RELEASE"
@@ -38,4 +39,10 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+tasks.withType<ProcessResources> {
+	filesMatching("application.properties") {
+		expand(project.properties)
+	}
 }

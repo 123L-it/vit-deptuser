@@ -23,6 +23,7 @@ class ControllerExceptionHandler {
     @ExceptionHandler(value = [NotFoundException::class])
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     fun resourceNotFoundException(ex: NotFoundException, request: WebRequest?) = ex.message?.let {
+        LOGGER.error("Error code: ${HttpStatus.NOT_FOUND.value()}, message: $it", ex)
         errorResponse(
                 HttpStatus.NOT_FOUND.value(),
                 HttpStatus.NOT_FOUND.reasonPhrase,
@@ -33,7 +34,8 @@ class ControllerExceptionHandler {
 
     @ExceptionHandler(value = [Exception::class])
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    fun unknownException(e: Exception, request: WebRequest) = e.message?.let {
+    fun unknownException(ex: Exception, request: WebRequest) = ex.message?.let {
+        LOGGER.error("Error code: ${HttpStatus.INTERNAL_SERVER_ERROR.value()}, message: $it", ex)
         errorResponse(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 HttpStatus.INTERNAL_SERVER_ERROR.reasonPhrase,
@@ -47,6 +49,6 @@ class ControllerExceptionHandler {
             "status" to status,
             "error" to error,
             "message" to message,
-            "path" to (request as ServletWebRequest)?.request.requestURI
+            "path" to (request as ServletWebRequest).request.requestURI
     )
 }
