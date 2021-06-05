@@ -25,10 +25,10 @@ class ControllerExceptionHandler {
     fun resourceNotFoundException(ex: NotFoundException, request: WebRequest?) = ex.message?.let {
         LOGGER.error("Error code: ${HttpStatus.NOT_FOUND.value()}, message: $it", ex)
         errorResponse(
-                HttpStatus.NOT_FOUND.value(),
-                HttpStatus.NOT_FOUND.reasonPhrase,
-                it,
-                request
+            HttpStatus.NOT_FOUND.value(),
+            HttpStatus.NOT_FOUND.reasonPhrase,
+            it,
+            request
         )
     }
 
@@ -37,18 +37,18 @@ class ControllerExceptionHandler {
     fun unknownException(ex: Exception, request: WebRequest) = ex.message?.let {
         LOGGER.error("Error code: ${HttpStatus.INTERNAL_SERVER_ERROR.value()}, message: $it", ex)
         errorResponse(
-                HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                HttpStatus.INTERNAL_SERVER_ERROR.reasonPhrase,
-                it,
-                request
+            HttpStatus.INTERNAL_SERVER_ERROR.value(),
+            HttpStatus.INTERNAL_SERVER_ERROR.reasonPhrase,
+            it,
+            request
         )
     }
 
     fun errorResponse(status: Int, error: String, message: String, request: WebRequest?) = linkedMapOf(
-            "timestamp" to System.currentTimeMillis(),
-            "status" to status,
-            "error" to error,
-            "message" to message,
-            "path" to (request as ServletWebRequest).request.requestURI
+        "timestamp" to System.currentTimeMillis(),
+        "status" to status,
+        "error" to error,
+        "message" to message,
+        "path" to (request as ServletWebRequest).request.requestURI
     )
 }
