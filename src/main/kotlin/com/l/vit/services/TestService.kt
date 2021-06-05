@@ -1,7 +1,7 @@
 package com.l.vit.services
 
-import com.l.vit.config.NotFoundException
 import com.l.vit.context.IUsers
+import com.l.vit.exceptions.NotFoundException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired

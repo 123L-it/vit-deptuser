@@ -1,6 +1,6 @@
 package com.l.vit.controllers
 
-import com.l.vit.config.NotFoundException
+import com.l.vit.exceptions.NotFoundException
 import com.l.vit.services.TestService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
