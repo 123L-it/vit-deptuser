@@ -30,7 +30,7 @@ class TestController {
     @Throws(NotFoundException::class)
     @GetMapping("/{id}")
     fun getUserById(@PathVariable("id") id: String): ResponseEntity<*> {
-        return ResponseEntity(testService.getTestName(id), HttpStatus.OK)
+        return ResponseEntity(testService.getUserById(id), HttpStatus.OK)
     }
 
     @GetMapping("")

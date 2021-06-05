@@ -14,11 +14,7 @@ class Users : IUsers {
         User("6", "test6", true)
     )
 
-    override fun getUserById(id: String): User? {
-        return users.find { it.id == id }
-    }
+    override fun getUserById(id: String) = users.find { it.id == id }
 
-    override fun getUsers(): List<User>? {
-        return users
-    }
+    override fun getUsers() = users
 }

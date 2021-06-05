@@ -1,11 +1,12 @@
 import org.gradle.language.jvm.tasks.ProcessResources
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
 plugins {
-    id("org.springframework.boot") version "2.3.11.RELEASE"
+    id("org.springframework.boot") version "2.5.0"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    kotlin("jvm") version "1.4.32"
-    kotlin("plugin.spring") version "1.3.72"
+    kotlin("jvm") version "1.5.10"
+    kotlin("plugin.spring") version "1.5.10"
     id("org.jlleitschuh.gradle.ktlint") version "10.1.0"
     id("org.jmailen.kotlinter") version "3.4.4"
 }
@@ -24,10 +25,16 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.junit.jupiter:junit-jupiter:5.7.0")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
+    testImplementation("io.mockk:mockk:1.11.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
-        exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
+        exclude(module = "junit")
+        exclude(module = "mockito-core")
     }
+    testImplementation("com.ninja-squad:springmockk:3.0.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     // testImplementation("org.springframework.security:spring-security-test")
 }
 
@@ -46,4 +53,9 @@ tasks.withType<ProcessResources> {
     filesMatching("application.properties") {
         expand(project.properties)
     }
+}
+
+tasks.withType<BootBuildImage> {
+    builder = "paketobuildpacks/builder:tiny"
+    environment = mapOf("BP_NATIVE_IMAGE" to "true")
 }

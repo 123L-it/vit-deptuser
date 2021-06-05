@@ -21,7 +21,7 @@ class TestService {
     @Autowired
     private lateinit var users: IUsers
 
-    fun getTestName(id: String) = users.getUserById(id)?.let { it } ?: throw NotFoundException("user not found")
+    fun getUserById(id: String) = users.getUserById(id)?.let { it } ?: throw NotFoundException("user not found")
 
     fun getAllUsers() = users.getUsers()
 }
