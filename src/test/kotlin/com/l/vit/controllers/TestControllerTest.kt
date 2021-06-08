@@ -2,6 +2,7 @@ package com.l.vit.controllers
 
 import com.l.vit.exceptions.NotFoundException
 import com.l.vit.models.User
+import com.l.vit.security.SecurityPathConfig
 import com.l.vit.services.TestService
 import com.l.vit.test.utils.Users
 import com.ninjasquad.springmockk.MockkBean
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.context.junit.jupiter.SpringExtension
@@ -17,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
 
 @ExtendWith(SpringExtension::class)
+@EnableConfigurationProperties(value = [SecurityPathConfig::class])
 @WebMvcTest(controllers = [TestController::class])
 internal class TestControllerTest(@Autowired val mockMvc: MockMvc) {
 
