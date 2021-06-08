@@ -2,9 +2,3 @@ auth:
     securityPaths:
         - path: "/api/v1/test/*"
           isOpen: true
----
-spring:
-  profiles: prod
----
-spring:
-  profiles: dev
