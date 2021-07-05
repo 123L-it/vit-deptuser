@@ -17,4 +17,6 @@ class Users : IUsers {
     override fun getUserById(id: String) = users.find { it.id == id }
 
     override fun getUsers() = users
+
+    override fun getUserByName(name: String) = users.find { it.name == name }
 }

@@ -6,4 +6,6 @@ interface IUsers {
     fun getUserById(id: String): User?
 
     fun getUsers(): List<User>?
+
+    fun getUserByName(name:String): User?
 }
