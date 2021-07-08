@@ -1,4 +1,4 @@
-package com.l.vit.security
+package com.l.vit.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding

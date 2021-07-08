@@ -1,35 +1,45 @@
 package com.l.vit.controllers
 
+import com.l.vit.config.SecurityPathConfig
 import com.l.vit.exceptions.NotFoundException
 import com.l.vit.models.User
-import com.l.vit.security.SecurityPathConfig
 import com.l.vit.services.TestService
+import com.l.vit.services.UserService
 import com.l.vit.test.utils.Users
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
+import io.mockk.junit5.MockKExtension
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.context.properties.EnableConfigurationProperties
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
 
-@ExtendWith(SpringExtension::class)
+@AutoConfigureMockMvc
 @EnableConfigurationProperties(value = [SecurityPathConfig::class])
 @WebMvcTest(controllers = [TestController::class])
-internal class TestControllerTest(@Autowired val mockMvc: MockMvc) {
+@ExtendWith(SpringExtension::class, MockKExtension::class)
+internal class TestControllerTest {
 
     companion object {
         private const val TEST_USER_ID_PASS: String = "1"
         private const val TEST_USER_ID_FAILS: String = "15"
     }
 
+    @Autowired
+    private lateinit var mockMvc: MockMvc
+
     @MockkBean
     private lateinit var testService: TestService
+
+    @MockkBean
+    private lateinit var userService: UserService
 
     @Test
     fun `should returns a list of user`() {

@@ -1,18 +1,24 @@
-package com.l.vit.security
+package com.l.vit.config
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.security.SecurityProperties
+import org.springframework.context.annotation.Bean
 import org.springframework.core.annotation.Order
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.crypto.factory.PasswordEncoderFactories
+import org.springframework.security.crypto.password.PasswordEncoder
 
 @EnableWebSecurity
 @Order(SecurityProperties.BASIC_AUTH_ORDER)
 class WebSecurityAdapter @Autowired constructor(
     private val securityPathConfig: SecurityPathConfig
 ) : WebSecurityConfigurerAdapter() {
+
+    @Bean
+    fun passwordEncoder(): PasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder()
 
     override fun configure(http: HttpSecurity?) {
         http?.let { httpSecurity ->
