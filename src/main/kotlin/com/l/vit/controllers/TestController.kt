@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/v1/test")
 class TestController {
-
     companion object {
         val LOGGER: Logger = LoggerFactory.getLogger(TestController::class.java)
     }
@@ -37,7 +36,6 @@ class TestController {
     @Throws(NotFoundException::class)
     @GetMapping("/{id}")
     fun getUserById(@PathVariable("id") id: String): ResponseEntity<*> {
-        LOGGER.info("start request with id: $id")
         return ResponseEntity(testService.getUserById(id), HttpStatus.OK)
     }
 
@@ -50,7 +48,6 @@ class TestController {
     fun createUser(
         @RequestBody user: User,
     ): ResponseEntity<User> {
-        LOGGER.info("username: ${user.username}, password: ${user.password}")
         return ResponseEntity(userService.createOrUpdateUser(user), HttpStatus.OK)
     }
 }

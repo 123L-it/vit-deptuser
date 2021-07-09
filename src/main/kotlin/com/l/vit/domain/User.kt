@@ -1,5 +1,6 @@
 package com.l.vit.domain
 
+import com.fasterxml.jackson.annotation.JsonFilter
 import com.l.vit.annotations.NoArg
 import org.hibernate.annotations.GenericGenerator
 import org.springframework.security.core.userdetails.UserDetails
@@ -14,6 +15,7 @@ import javax.persistence.Table
 @Entity
 @NoArg
 @Table(name = "users")
+@JsonFilter("excludePassword")
 data class User(
     @Id
     @GeneratedValue(generator = "UUID")
