@@ -1,7 +1,21 @@
 version: '3.7'
+
 services:
-  app:
-    build: .
-    container_name: vit-server
-    ports:
-      - "8080:8080"
+    postgreSQL:
+        image: postgres:latest
+        restart: always
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: example
+            POSTGRES_DB: vit-access-control
+    app:
+        build: .
+        container_name: vit-server
+        ports:
+            - "8080:8080"
+        volumes:
+            - ./build/libs/vit-server-0.0.1-SNAPSHOT.jar:/app/app.jar
+        depends_on:
+            - postgreSQL

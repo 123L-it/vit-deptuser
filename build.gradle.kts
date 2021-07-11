@@ -9,6 +9,7 @@ plugins {
     kotlin("plugin.spring") version "1.5.10"
     id("org.jlleitschuh.gradle.ktlint") version "10.1.0"
     id("org.jmailen.kotlinter") version "3.4.4"
+    id("org.jetbrains.kotlin.plugin.noarg") version "1.5.20-RC"
 }
 
 group = "com.123L.vit"
@@ -21,6 +22,7 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -28,6 +30,7 @@ dependencies {
     implementation("org.junit.jupiter:junit-jupiter:5.7.0")
     implementation("io.jsonwebtoken:jjwt-api:0.11.2")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
+    runtimeOnly("org.postgresql:postgresql")
     testImplementation("io.mockk:mockk:1.11.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(module = "junit")
@@ -37,6 +40,10 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     testImplementation("org.springframework.security:spring-security-test")
+}
+
+noArg {
+    annotation("com.l.vit.annotations.NoArg")
 }
 
 tasks.withType<KotlinCompile> {
