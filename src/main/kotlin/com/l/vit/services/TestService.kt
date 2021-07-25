@@ -24,8 +24,4 @@ class TestService {
     fun getUserById(id: String) = users.getUserById(id)?.let { it } ?: throw NotFoundException("user not found")
 
     fun getAllUsers() = users.getUsers()
-
-    fun getUserByName(name:String) = users.getUserByName((name))?.let {
-        it
-    } ?: throw NotFoundException("user not found")
 }
