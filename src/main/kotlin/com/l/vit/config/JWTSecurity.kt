@@ -7,23 +7,23 @@ import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.security.Keys
 import java.security.KeyPair
-import java.util.*
+import java.util.Date
 
 class JWTSecurity {
 
     val keyPair: KeyPair = Keys.keyPairFor(SignatureAlgorithm.RS256)
 
-    fun createJWToken(user: User): String?{
+    fun createJWToken(user: User): String? {
         return Jwts.builder()
-                .setIssuer(user.username)
-                .setExpiration(Date(System.currentTimeMillis() + 60 * 24 * 1000)) // 1 day
-                .compact()
+            .setIssuer(user.username)
+            .setExpiration(Date(System.currentTimeMillis() + 60 * 24 * 1000)) // 1 day
+            .compact()
     }
 
-    fun validateJWToken(jwt:String): Jws<Claims> {
+    fun validateJWToken(jwt: String): Jws<Claims> {
         return Jwts.parserBuilder()
-                .setSigningKey(keyPair.public)
-                .build()
-                .parseClaimsJws(jwt)
+            .setSigningKey(keyPair.public)
+            .build()
+            .parseClaimsJws(jwt)
     }
 }

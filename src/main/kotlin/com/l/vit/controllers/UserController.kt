@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletResponse
 
 @RestController
@@ -36,9 +35,7 @@ class UserController {
     }
 
     @PutMapping("")
-    fun createUser(
-            @RequestBody user: User,
-    ): ResponseEntity<User> {
+    fun createUser(@RequestBody user: User): ResponseEntity<User> {
         return ResponseEntity(userService.createOrUpdateUser(user), HttpStatus.OK)
     }
 
@@ -50,16 +47,14 @@ class UserController {
     @Throws(NotFoundException::class)
     @PostMapping("/login")
     fun login(
-            @RequestBody user: User,
-            response: HttpServletResponse
+        @RequestBody user: User,
+        response: HttpServletResponse
     ): ResponseEntity<*> {
         val isValidUser = userService.validateUser(user)
 
         if (isValidUser) {
             val jwt = jwtSecurity.createJWToken(user)
-            var cookie = Cookie("jwt", jwt)
-            cookie.isHttpOnly = true
-            response.addCookie(cookie)
+            response.addHeader("jwt", jwt)
             return ResponseEntity(isValidUser, HttpStatus.OK)
         }
         return ResponseEntity.badRequest().body("User not found")

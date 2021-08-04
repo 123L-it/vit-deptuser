@@ -27,9 +27,9 @@ class UserService @Autowired constructor(
     }
 
     @Transactional
-    override fun validateUser(user:User): Boolean {
+    override fun validateUser(user: User): Boolean {
         userRepository.findByUserName(user.username)?.let {
-            return encoder.matches(user.password,it.password)
+            return encoder.matches(user.password, it.password)
         }
         throw NotFoundException("user not found")
     }
