@@ -39,7 +39,7 @@ class UserController {
         return ResponseEntity(userService.createOrUpdateUser(user), HttpStatus.OK)
     }
 
-    @GetMapping("/getUsers")
+    @GetMapping("/users")
     fun getUserById(): ResponseEntity<*> {
         return ResponseEntity(userService.getUsers(), HttpStatus.OK)
     }
