@@ -6,10 +6,16 @@ import org.hibernate.annotations.GenericGenerator
 import org.springframework.security.core.userdetails.UserDetails
 import java.io.Serializable
 import java.util.UUID
+import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
+import javax.persistence.JoinColumn
+import javax.persistence.JoinTable
+import javax.persistence.ManyToMany
+import javax.persistence.OneToMany
 import javax.persistence.Table
 
 @Entity
@@ -38,9 +44,19 @@ data class User(
     @Column(name = "credentials_non_expired", nullable = false)
     private val credentialsNonExpired: Boolean = true,
 
-    @Column(nullable = false)
-    private val enabled: Boolean = true,
+    @JoinTable(
+        name = "teams_users",
+        joinColumns = [JoinColumn(name = "users_id", referencedColumnName = "id")],
+        inverseJoinColumns = [JoinColumn(name = "team_id", referencedColumnName = "id")]
+    )
+    @ManyToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    private val teams: Set<Team> = mutableSetOf(),
 
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    private val organizationUserRole: Set<OrganizationUserRole> = mutableSetOf(),
+
+    @Column(nullable = false)
+    private val enabled: Boolean = true
 ) : UserDetails, Serializable {
 
     override fun getUsername() = userName
