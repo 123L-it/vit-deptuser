@@ -27,7 +27,7 @@ class UserController {
 
     @Autowired
     private lateinit var userService: UserService
-    private lateinit var jwtSecurity: JWTSecurity
+    private var jwtSecurity: JWTSecurity
 
     init {
         TestController.LOGGER.info("Init test controller")

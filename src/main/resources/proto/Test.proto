@@ -1,0 +1,20 @@
+syntax = "proto3";
+option java_package = "com.l.vit.services.grpc";
+option java_outer_classname = "TestProto";
+option java_multiple_files = true;
+
+// The greeting service definition.
+service Test {
+  // Sends a greeting
+  rpc ValidateUser (UserRequest) returns (UserReply) {}
+}
+
+// The request message containing the user's name.
+message UserRequest {
+  string name = 1;
+}
+
+// The response message containing the user detail
+message UserReply {
+  string message = 1;
+}
