@@ -1,4 +1,4 @@
-# Vit Server
+# Vit Deptuser
 
 Kotlin based server to manage all the User Authorization.
 
